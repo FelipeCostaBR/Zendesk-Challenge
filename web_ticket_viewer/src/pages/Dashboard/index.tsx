@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import Header from '../../components/Header';
 import api from '../../services/api';
-
+import TicketModal from '../../components/TicketModal';
 import { Container, BodyContent, TableContainer } from './styles';
 
 interface Ticket {
@@ -16,14 +15,25 @@ interface Ticket {
 
 export const Dashboard: React.FC = () => {
     const [allTickets, setAllTickets] = useState<Ticket[]>([]);
+    const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
+    const [ticketModalData, setTicketModalData] = useState<Ticket>();
+
+    const openTicketModal = (ticket: Ticket): void => {
+        setTicketModalData(ticket);
+        setIsTicketModalOpen(true);
+    };
+
+    const closeTicketModal = (): void => {
+        setIsTicketModalOpen(false);
+    };
 
     useEffect(() => {
         const fetchTickets = async (): Promise<void> => {
             const response = await api.get('/tickets');
             const { tickets } = response.data;
+
             setAllTickets(tickets);
         };
-
         fetchTickets();
     }, []);
 
@@ -42,7 +52,7 @@ export const Dashboard: React.FC = () => {
                         </thead>
                         <tbody>
                             {allTickets.map(ticket => (
-                                <tr key={ticket.id}>
+                                <tr key={ticket.id} onClick={() => openTicketModal(ticket)}>
                                     <td className={ticket.status}>{ticket.status}</td>
                                     <td>{ticket.subject}</td>
                                     <td>{new Intl.DateTimeFormat('en-AD').format(new Date(ticket.request_dt))}</td>
@@ -52,6 +62,7 @@ export const Dashboard: React.FC = () => {
                     </table>
                 </TableContainer>
             </BodyContent>
+            <TicketModal isOpen={isTicketModalOpen} onRequestClose={closeTicketModal} data={ticketModalData} />
         </Container>
     );
 };

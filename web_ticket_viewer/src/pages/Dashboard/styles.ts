@@ -53,9 +53,12 @@ export const TableContainer = styled.div`
         }
 
         tbody {
-            cursor: pointer;
-            tr:nth-child(even) {
-                background: ${darken(0.05, '#f0f2f5')};
+            tr {
+                cursor: pointer;
+
+                &:hover {
+                    background: ${darken(0.05, '#f0f2f5')};
+                }
             }
 
             td {
@@ -70,14 +73,23 @@ export const TableContainer = styled.div`
                 }
                 &.open {
                     background: var(--red);
+                    &:hover {
+                        background: ${darken(0.08, '#e52e4d')};
+                    }
                 }
 
                 &.pending {
                     background: var(--blue);
+                    &:hover {
+                        background: ${darken(0.08, '#1E90FF')};
+                    }
                 }
 
                 &.solved {
                     background: var(--green);
+                    &:hover {
+                        background: ${darken(0.08, '#006400')};
+                    }
                 }
             }
         }
