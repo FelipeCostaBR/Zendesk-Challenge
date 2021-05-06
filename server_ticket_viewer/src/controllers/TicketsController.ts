@@ -11,12 +11,6 @@ interface Ticket {
     created_at: string;
 }
 
-interface TotalTickets {
-    solved: number;
-    pending: number;
-    open: number;
-}
-
 export default class TicketsController {
     public async show(_: Request, response: Response): Promise<Response> {
         const ticketsURL = `${credentials.baseUrl}/tickets.json?page[size]=20`;
@@ -46,27 +40,30 @@ export default class TicketsController {
     }
 
     public async total(_: Request, response: Response): Promise<Response> {
-        const ticketsURL = `${credentials.baseUrl}/tickets.json`;
+        const totalTicketsUnsolvedURL = `${credentials.baseUrl}/views/900035157166/count`;
+        const totalTicketsPendingURL = `${credentials.baseUrl}/views/900035157146/count`;
+        const totalTicketsSolvedURL = `${credentials.baseUrl}/views/900035157226/count`;
 
         try {
-            const { data } = await axios.get(ticketsURL, headers);
+            const ticketsUnsolved = await axios
+                .get(totalTicketsUnsolvedURL, headers)
+                .then(resp => resp.data.view_count.value);
 
-            const totalTickets = data.tickets.reduce(
-                (acc: TotalTickets, ticket: Ticket) => {
-                    if (ticket.status === 'solved') {
-                        acc.solved += 1;
-                    } else if (ticket.status === 'pending') {
-                        acc.pending += 1;
-                    } else {
-                        acc.open += 1;
-                    }
-                    return acc;
-                },
-                { solved: 0, pending: 0, open: 0 },
-            );
-            return response.json({
-                total_tickets: totalTickets,
-            });
+            const ticketsPending = await axios
+                .get(totalTicketsPendingURL, headers)
+                .then(resp => resp.data.view_count.value);
+
+            const ticketsSolved = await axios
+                .get(totalTicketsSolvedURL, headers)
+                .then(resp => resp.data.view_count.value);
+
+            const totalTicketsStatus = {
+                unsolved: ticketsUnsolved,
+                pending: ticketsPending,
+                solved: ticketsSolved,
+            };
+
+            return response.json({ totalTicketsStatus });
         } catch (error) {
             return response.json({
                 message: error.message,
