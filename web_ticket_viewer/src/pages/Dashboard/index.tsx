@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
-import api from '../../services/api';
 import TicketModal from '../../components/TicketModal';
 import { Container, BodyContent, TableContainer } from './styles';
+import Pagination from '../../components/Pagination';
+import useTickets from '../../hooks/useTickets';
 
 interface Ticket {
     id: number;
     requester_id: number;
     status: string;
+    request_dt: string;
     subject: string;
     description: string;
-    request_dt: string;
 }
 
-export const Dashboard: React.FC = () => {
-    const [allTickets, setAllTickets] = useState<Ticket[]>([]);
+interface paginationProps {
+    prev: string;
+    next: string;
+}
+
+const Dashboard: React.FC = () => {
+    const { allTickets, pages, setCurrentPageUrl } = useTickets();
+
     const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
     const [ticketModalData, setTicketModalData] = useState<Ticket>();
 
@@ -27,14 +34,18 @@ export const Dashboard: React.FC = () => {
         setIsTicketModalOpen(false);
     };
 
-    useEffect(() => {
-        const fetchTickets = async (): Promise<void> => {
-            const response = await api.get('/tickets');
-            const { tickets } = response.data;
+    const handleNextPagesURL = (nextPageURL?: paginationProps): void => {
+        const nextPage = nextPageURL?.next.split('?')[1];
+        setCurrentPageUrl(`/tickets/${nextPage}`);
+    };
 
-            setAllTickets(tickets);
-        };
-        fetchTickets();
+    const handlePreviousPagesURL = (prevPageURL?: paginationProps): void => {
+        const prevPage = prevPageURL?.prev.split('?')[1];
+        setCurrentPageUrl(`/tickets/${prevPage}`);
+    };
+
+    useEffect(() => {
+        setCurrentPageUrl('/tickets');
     }, []);
 
     return (
@@ -51,7 +62,7 @@ export const Dashboard: React.FC = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {allTickets.map(ticket => (
+                            {allTickets.map((ticket: Ticket) => (
                                 <tr key={ticket.id} onClick={() => openTicketModal(ticket)}>
                                     <td className={ticket.status}>{ticket.status}</td>
                                     <td>{ticket.subject}</td>
@@ -62,7 +73,20 @@ export const Dashboard: React.FC = () => {
                     </table>
                 </TableContainer>
             </BodyContent>
+            {pages?.prev ? (
+                <Pagination onClick={() => handlePreviousPagesURL(pages)}> Previous </Pagination>
+            ) : (
+                <Pagination>Previous</Pagination>
+            )}
+            {pages?.next ? (
+                <Pagination onClick={() => handleNextPagesURL(pages)}> Next </Pagination>
+            ) : (
+                <Pagination>Next</Pagination>
+            )}
+
             <TicketModal isOpen={isTicketModalOpen} onRequestClose={closeTicketModal} data={ticketModalData} />
         </Container>
     );
 };
+
+export default Dashboard;
