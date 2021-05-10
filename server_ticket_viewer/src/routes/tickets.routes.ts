@@ -6,5 +6,6 @@ const ticketsController = new TicketsController();
 
 ticketsRouter.get('/', ticketsController.show);
 ticketsRouter.get('/total', ticketsController.total);
+ticketsRouter.get('/:pageURL', ticketsController.pagination);
 
 export default ticketsRouter;

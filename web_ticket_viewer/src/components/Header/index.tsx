@@ -6,7 +6,7 @@ import { Container, BodyContent } from './styles';
 interface TotalTicket {
     solved: number;
     pending: number;
-    open: number;
+    unsolved: number;
 }
 
 const Header: React.FC = () => {
@@ -15,9 +15,9 @@ const Header: React.FC = () => {
     useEffect(() => {
         const fetchTickets = async (): Promise<void> => {
             const response = await api.get('/tickets/total');
-            const { total_tickets } = response.data;
+            const { totalTicketsStatus } = response.data;
 
-            setTotalTickets(total_tickets);
+            setTotalTickets(totalTicketsStatus);
         };
         fetchTickets();
     }, []);
@@ -28,12 +28,14 @@ const Header: React.FC = () => {
             <BodyContent>
                 {totalTickets ? (
                     <ul>
-                        <li>{totalTickets?.open} - tickets open </li>
+                        <li>{totalTickets?.unsolved} - tickets open </li>
                         <li>{totalTickets?.pending} - tickets pending</li>
                         <li>{totalTickets?.solved} - tickets solved</li>
                     </ul>
                 ) : (
-                    <></>
+                    <>
+                        <h1>Loading...</h1>
+                    </>
                 )}
             </BodyContent>
         </Container>

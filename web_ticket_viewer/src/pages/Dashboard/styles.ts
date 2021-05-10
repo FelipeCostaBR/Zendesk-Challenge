@@ -23,7 +23,7 @@ export const BodyContent = styled.div`
 
 export const TableContainer = styled.div`
     width: 100%;
-    margin: 2rem auto 0px;
+    margin: 1rem auto 0px;
 
     @media screen and (max-width: 500px) {
         overflow-x: scroll;
@@ -31,7 +31,6 @@ export const TableContainer = styled.div`
 
     table {
         width: 100%;
-        border-spacing: 0 0.5rem;
 
         thead {
             th {
@@ -62,7 +61,7 @@ export const TableContainer = styled.div`
             }
 
             td {
-                padding: 1rem 2rem;
+                padding: 0.4rem 1rem;
                 border: 1px ${lighten(0.5, '#363f5f')} solid;
                 border-radius: 0.25rem;
 
@@ -85,7 +84,7 @@ export const TableContainer = styled.div`
                     }
                 }
 
-                &.solved {
+                &.closed {
                     background: var(--green);
                     &:hover {
                         background: ${darken(0.08, '#006400')};
