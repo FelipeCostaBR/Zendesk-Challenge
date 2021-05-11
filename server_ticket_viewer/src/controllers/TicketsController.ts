@@ -1,15 +1,7 @@
 import axios from 'axios';
 import { Request, Response } from 'express';
 import { credentials, headers } from '../config/credentials.config';
-
-interface Ticket {
-    id: number;
-    requester_id: number;
-    status: string;
-    created_at: string;
-    subject: string;
-    description: string;
-}
+import formatTicket from '../utils/formatTicket';
 
 export default class TicketsController {
     public async show(_: Request, response: Response): Promise<Response> {
@@ -17,15 +9,7 @@ export default class TicketsController {
 
         try {
             const { data } = await axios.get(ticketsURL, headers);
-
-            const tickets = data.tickets.map((ticket: Ticket) => ({
-                id: ticket.id,
-                requester_id: ticket.requester_id,
-                status: ticket.status,
-                request_dt: ticket.created_at,
-                subject: ticket.subject,
-                description: ticket.description,
-            }));
+            const tickets = formatTicket(data.tickets);
 
             const pagination = {
                 prev: '',
@@ -54,14 +38,7 @@ export default class TicketsController {
             const hasMorePages = data.meta.has_more;
 
             if (hasMorePages) {
-                const tickets = data.tickets.map((ticket: Ticket) => ({
-                    id: ticket.id,
-                    requester_id: ticket.requester_id,
-                    status: ticket.status,
-                    request_dt: ticket.created_at,
-                    subject: ticket.subject,
-                    description: ticket.description,
-                }));
+                const tickets = formatTicket(data.tickets);
 
                 const pagination = {
                     prev: data.links.prev,
@@ -71,14 +48,7 @@ export default class TicketsController {
                 return response.json({ tickets, pagination });
             }
 
-            const tickets = data.tickets.map((ticket: Ticket) => ({
-                id: ticket.id,
-                requester_id: ticket.requester_id,
-                status: ticket.status,
-                request_dt: ticket.created_at,
-                subject: ticket.subject,
-                description: ticket.description,
-            }));
+            const tickets = formatTicket(data.tickets);
 
             const pagination = {
                 prev: data.links.prev,
@@ -97,8 +67,8 @@ export default class TicketsController {
 
     public async total(_: Request, response: Response): Promise<Response> {
         const totalTicketsUnsolvedURL = `${credentials.baseUrl}/views/900035157166/count`;
-        const totalTicketsPendingURL = `${credentials.baseUrl}/views/900035157146/count`;
-        const totalTicketsSolvedURL = `${credentials.baseUrl}/views/900035157226/count`;
+        const totalTicketsPendingURL = `${credentials.baseUrl}/views/900035157226/count`;
+        // const totalTicketsSolvedURL = `${credentials.baseUrl}/views/900035157146/count`;
 
         try {
             const ticketsUnsolved = await axios
@@ -109,14 +79,14 @@ export default class TicketsController {
                 .get(totalTicketsPendingURL, headers)
                 .then(resp => resp.data.view_count.value);
 
-            const ticketsSolved = await axios
-                .get(totalTicketsSolvedURL, headers)
-                .then(resp => resp.data.view_count.value);
+            // const ticketsSolved = await axios
+            //     .get(totalTicketsSolvedURL, headers)
+            //     .then(resp => resp.data.view_count.value);
 
             const totalTicketsStatus = {
                 unsolved: ticketsUnsolved,
                 pending: ticketsPending,
-                solved: ticketsSolved,
+                // solved: ticketsSolved,
             };
 
             return response.json({ totalTicketsStatus });
