@@ -1,7 +1,7 @@
 const credentials = {
     baseUrl: 'https://felipesolutions.zendesk.com/api/v2',
     username: 'felipejsilvacosta@gmail.com/token',
-    password: 'aXU49ZJRDywW1FFVMdiHg3P3KKl0y3w5eyV2jxWD',
+    password: 'CtDQG03Xnhsz3s5iPbUG1bhXCzaHqxydW4gGaVRi',
 };
 
 const token = Buffer.from(

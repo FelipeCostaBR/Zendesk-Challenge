@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Modal from 'react-modal';
+
+import useTickets from '../../hooks/useTickets';
+
 import closeImg from '../../assets/close.svg';
-import api from '../../services/api';
 import { Container, HeaderModal } from './styles';
 
 interface Ticket {
@@ -20,17 +22,11 @@ interface TicketModalProps {
 }
 
 const TicketModal: React.FC<TicketModalProps> = ({ isOpen, onRequestClose, data: ticket }) => {
-    const [requesterName, setRequesterName] = useState('');
+    const { setRequesterName, setCurrentPageUrl, requesterName } = useTickets();
 
     useEffect(() => {
-        const fetchUsers = async (): Promise<void> => {
-            const response = await api.get(`/users/${ticket?.requester_id}`);
-            const { requester } = response.data;
-
-            setRequesterName(requester);
-        };
-
-        fetchUsers();
+        setRequesterName('');
+        setCurrentPageUrl(`/users/${ticket?.requester_id}`);
     }, [isOpen]);
 
     return (
@@ -44,19 +40,23 @@ const TicketModal: React.FC<TicketModalProps> = ({ isOpen, onRequestClose, data:
                 <img src={closeImg} alt="close modal" />
             </button>
 
-            <Container>
-                <h2>Ticket Details</h2>
-                <HeaderModal>
-                    <p>
-                        Requester: <span>{requesterName}</span>
-                    </p>
-                    <p>
-                        Subject: <span>{ticket?.subject}</span>{' '}
-                    </p>
-                </HeaderModal>
+            {requesterName ? (
+                <Container>
+                    <h2>Ticket Details</h2>
+                    <HeaderModal>
+                        <p>
+                            Requester: <span>{requesterName}</span>
+                        </p>
+                        <p>
+                            Subject: <span>{ticket?.subject}</span>{' '}
+                        </p>
+                    </HeaderModal>
 
-                <p>{ticket?.description}</p>
-            </Container>
+                    <p>{ticket?.description}</p>
+                </Container>
+            ) : (
+                <h1> Loading...</h1>
+            )}
         </Modal>
     );
 };

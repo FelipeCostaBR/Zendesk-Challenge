@@ -13,7 +13,7 @@ export default class UsersController {
 
             return response.json({ requester });
         } catch (error) {
-            return response.json({
+            return response.status(404).json({
                 message: error.message,
                 data: error.response.data,
                 status: error.response.status,
