@@ -30,7 +30,6 @@ const Header: React.FC = () => {
                     <ul>
                         <li>{totalTickets?.unsolved} - tickets open </li>
                         <li>{totalTickets?.pending} - tickets pending</li>
-                        <li>{totalTickets?.solved} - tickets solved</li>
                     </ul>
                 ) : (
                     <>
