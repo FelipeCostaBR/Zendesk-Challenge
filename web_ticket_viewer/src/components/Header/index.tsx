@@ -1,35 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import api from '../../services/api';
+import React, { useEffect } from 'react';
 
+import useTickets from '../../hooks/useTickets';
 import { Container, BodyContent } from './styles';
 
-interface TotalTicket {
-    solved: number;
-    pending: number;
-    unsolved: number;
-}
-
 const Header: React.FC = () => {
-    const [totalTickets, setTotalTickets] = useState<TotalTicket>();
+    const { ticketsStatus, setCurrentPageUrl } = useTickets();
 
     useEffect(() => {
-        const fetchTickets = async (): Promise<void> => {
-            const response = await api.get('/tickets/total');
-            const { totalTicketsStatus } = response.data;
-
-            setTotalTickets(totalTicketsStatus);
-        };
-        fetchTickets();
+        setCurrentPageUrl('/tickets/total');
     }, []);
 
     return (
         <Container>
             <h1>Ticket Viewer </h1>
             <BodyContent>
-                {totalTickets ? (
+                {ticketsStatus ? (
                     <ul>
-                        <li>{totalTickets?.unsolved} - tickets open </li>
-                        <li>{totalTickets?.pending} - tickets pending</li>
+                        <li>{ticketsStatus?.unsolved} - tickets open </li>
+                        <li>{ticketsStatus?.pending} - tickets pending</li>
                     </ul>
                 ) : (
                     <>

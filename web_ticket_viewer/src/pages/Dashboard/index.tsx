@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import TicketModal from '../../components/TicketModal';
-import { Container, BodyContent, TableContainer } from './styles';
 import Pagination from '../../components/Pagination';
 import useTickets from '../../hooks/useTickets';
+
+import { Container, BodyContent, TableContainer } from './styles';
+import AppError from '../../components/Error';
 
 interface Ticket {
     id: number;
@@ -20,7 +22,7 @@ interface paginationProps {
 }
 
 const Dashboard: React.FC = () => {
-    const { allTickets, pages, setCurrentPageUrl } = useTickets();
+    const { allTickets, pages, setCurrentPageUrl, httpStatusCode, httpErrorMessage } = useTickets();
 
     const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
     const [ticketModalData, setTicketModalData] = useState<Ticket>();
@@ -47,6 +49,10 @@ const Dashboard: React.FC = () => {
     useEffect(() => {
         setCurrentPageUrl('/tickets');
     }, []);
+
+    if (httpStatusCode && httpErrorMessage) {
+        return <AppError code={httpStatusCode} message={httpErrorMessage} />;
+    }
 
     return (
         <Container>

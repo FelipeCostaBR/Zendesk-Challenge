@@ -18,7 +18,7 @@ export default class TicketsController {
 
             return response.json({ tickets, pagination });
         } catch (error) {
-            return response.json({
+            return response.status(404).json({
                 message: error.message,
                 data: error.response.data.error,
                 status: error.response.status,
@@ -57,7 +57,7 @@ export default class TicketsController {
 
             return response.json({ tickets, pagination });
         } catch (error) {
-            return response.json({
+            return response.status(404).json({
                 message: error.message,
                 data: error.response.data.error,
                 status: error.response.status,
@@ -68,7 +68,6 @@ export default class TicketsController {
     public async total(_: Request, response: Response): Promise<Response> {
         const totalTicketsUnsolvedURL = `${credentials.baseUrl}/views/900035157166/count`;
         const totalTicketsPendingURL = `${credentials.baseUrl}/views/900035157226/count`;
-        // const totalTicketsSolvedURL = `${credentials.baseUrl}/views/900035157146/count`;
 
         try {
             const ticketsUnsolved = await axios
@@ -79,19 +78,14 @@ export default class TicketsController {
                 .get(totalTicketsPendingURL, headers)
                 .then(resp => resp.data.view_count.value);
 
-            // const ticketsSolved = await axios
-            //     .get(totalTicketsSolvedURL, headers)
-            //     .then(resp => resp.data.view_count.value);
-
-            const totalTicketsStatus = {
+            const allTicketsStatus = {
                 unsolved: ticketsUnsolved,
                 pending: ticketsPending,
-                // solved: ticketsSolved,
             };
 
-            return response.json({ totalTicketsStatus });
+            return response.json({ allTicketsStatus });
         } catch (error) {
-            return response.json({
+            return response.status(404).json({
                 message: error.message,
                 data: error.response.data.error,
                 status: error.response.status,
