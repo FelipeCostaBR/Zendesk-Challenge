@@ -72,7 +72,7 @@ const Dashboard: React.FC = () => {
                                 <tr key={ticket.id} onClick={() => openTicketModal(ticket)}>
                                     <td className={ticket.status}>{ticket.status}</td>
                                     <td>{ticket.subject}</td>
-                                    <td>{new Intl.DateTimeFormat('en-AD').format(new Date(ticket.request_dt))}</td>
+                                    <td>{ticket.request_dt}</td>
                                 </tr>
                             ))}
                         </tbody>

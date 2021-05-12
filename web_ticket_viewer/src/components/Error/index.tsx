@@ -12,7 +12,7 @@ const AppError: React.FC<ErrorProps> = ({ code, message }) => {
     };
 
     if (!code && !message) {
-        error.title = `The page you requested was not found. Try the link bellow`;
+        error.title = `something is wrong. Please,  Try Access the link bellow`;
         error.message = 'http://localhost:3000/tickets';
     }
 
