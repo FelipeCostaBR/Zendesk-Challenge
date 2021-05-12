@@ -22,10 +22,9 @@ interface TicketModalProps {
 }
 
 const TicketModal: React.FC<TicketModalProps> = ({ isOpen, onRequestClose, data: ticket }) => {
-    const { setRequesterName, setCurrentPageUrl, requesterName } = useTickets();
+    const { setCurrentPageUrl, requesterName } = useTickets();
 
     useEffect(() => {
-        setRequesterName('');
         setCurrentPageUrl(`/users/${ticket?.requester_id}`);
     }, [isOpen]);
 

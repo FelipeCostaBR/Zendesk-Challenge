@@ -78,6 +78,7 @@ function useTickets(): TicketProps {
     };
 
     useEffect(() => {
+        setRequesterName('');
         fetchTickets();
     }, [currentPageUrl]);
 

@@ -5,7 +5,7 @@ import formatTicket from '../utils/formatTicket';
 
 export default class TicketsController {
     public async show(_: Request, response: Response): Promise<Response> {
-        const ticketsURL = `${credentials.baseUrl}/tickets.json?page[size]=25`;
+        const ticketsURL = `${credentials.baseUrl}/tickets.json?page[size]=20`;
 
         try {
             const { data } = await axios.get(ticketsURL, headers);
