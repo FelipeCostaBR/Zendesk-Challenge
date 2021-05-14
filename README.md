@@ -30,21 +30,17 @@ I decided to create a web application, therefore, I selected the tools below to 
 * react-modal - I decided to show the ticket details in a modal to don't lose the context of the main page, because don't have any other feature or a lot information the ticket details with modal makes the resposabilite to display the details simple.
 
 
-## :books: Reference documentation
-
-* Lumen: https://lumen.laravel.com/docs/8.x/testing#testing-json-apis
-* Laravel: https://laravel.com/docs/8.x/testing
-
-
-
 ## Getting Started
 
-### Clone the repository
+ 
+### Clone the repository and create .env file
 * $ `git clone https://github.com/FelipeCostaBR/Zendesk-Challenge.git`
-* $ `cd Zendesk-Challenge`
+* $ `cd Zendesk-Challenge/server_ticket_viewer/`
+* Create a file `.env` on the root of the file `server_ticket_viewer/` and paste the informations sent to Sabrina's email.
    
 ### Run Server
-* $ `cd server_ticket_viewer`
+* $ `cd Zendesk-Challenge/server_ticket_viewer/`
+* $ `yarn`
 * $ `yarn dev:server`
 
 * Open a new terminal and go into the project folder
@@ -52,15 +48,41 @@ I decided to create a web application, therefore, I selected the tools below to 
 ### Run Web application
 
 * $ `cd web_ticket_viewer`
+* $ `yarn`
 * $ `yarn start`
 
-### If the brownser app dosen't open you copy and past the link below in your browser search.
+### If the brownser app dosen't open you copy and past the link below in your browser search
 *  http://localhost:3000/tickets
+
+
+### If doesn't return any tickets, you can execute in the terminal the command available in the file `insert_tickets.txt` available in the email
+
 
 ## Tests
 * copy the folder `test` attached on your email and paste on the path `../ZENDESK/server_ticket_viewer/src`
 * $ `cd server_ticket_viewer`
 * $ `yarn test`
 
+## ENJOY 
 
 
+## :books: Reference documentation
+
+### Zendesk API
+* Ticket API: https://developer.zendesk.com/rest_api/docs/support/tickets
+* Users API: https://developer.zendesk.com/rest_api/docs/support/users
+* Views API: https://developer.zendesk.com/rest_api/docs/support/views
+
+### Pagination
+* https://developer.zendesk.com/rest_api/docs/support/introduction#pagination
+* https://medium.com/how-to-react/create-pagination-in-react-js-using-react-hooks-c3c582ff5a96
+
+### Modal
+* http://reactcommunity.org/react-modal/
+* https://uxplanet.org/modal-vs-page-a-decision-making-framework-34453e911129
+
+### Test
+* https://dev.to/nedsoft/testing-nodejs-express-api-with-jest-and-supertest-1km6
+
+### DOTENV
+* https://www.npmjs.com/package/dotenv
