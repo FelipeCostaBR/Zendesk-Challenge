@@ -22,7 +22,7 @@ interface paginationProps {
 }
 
 const Dashboard: React.FC = () => {
-    const { allTickets, pages, setCurrentPageUrl, httpStatusCode, httpErrorMessage } = useTickets();
+    const { allTickets, pages, setUrl, httpStatusCode, httpErrorMessage } = useTickets();
 
     const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
     const [ticketModalData, setTicketModalData] = useState<Ticket>();
@@ -38,16 +38,16 @@ const Dashboard: React.FC = () => {
 
     const handleNextPagesURL = (nextPageURL?: paginationProps): void => {
         const nextPage = nextPageURL?.next.split('?')[1];
-        setCurrentPageUrl(`/tickets/${nextPage}`);
+        setUrl(`/tickets/${nextPage}`);
     };
 
     const handlePreviousPagesURL = (prevPageURL?: paginationProps): void => {
         const prevPage = prevPageURL?.prev.split('?')[1];
-        setCurrentPageUrl(`/tickets/${prevPage}`);
+        setUrl(`/tickets/${prevPage}`);
     };
 
     useEffect(() => {
-        setCurrentPageUrl('/tickets');
+        setUrl('/tickets');
     }, []);
 
     if (httpStatusCode && httpErrorMessage) {

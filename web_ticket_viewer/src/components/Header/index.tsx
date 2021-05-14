@@ -4,10 +4,10 @@ import useTickets from '../../hooks/useTickets';
 import { Container, BodyContent } from './styles';
 
 const Header: React.FC = () => {
-    const { ticketsStatus, setCurrentPageUrl } = useTickets();
+    const { ticketsStatus, setUrl } = useTickets();
 
     useEffect(() => {
-        setCurrentPageUrl('/tickets/total');
+        setUrl('/tickets/total');
     }, []);
 
     return (

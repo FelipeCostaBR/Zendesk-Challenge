@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import Modal from 'react-modal';
 
 import useTickets from '../../hooks/useTickets';
-
 import closeImg from '../../assets/close.svg';
+
 import { Container, HeaderModal } from './styles';
 
 interface Ticket {
@@ -22,10 +22,10 @@ interface TicketModalProps {
 }
 
 const TicketModal: React.FC<TicketModalProps> = ({ isOpen, onRequestClose, data: ticket }) => {
-    const { setCurrentPageUrl, requesterName } = useTickets();
+    const { setUrl, requesterName } = useTickets();
 
     useEffect(() => {
-        setCurrentPageUrl(`/users/${ticket?.requester_id}`);
+        setUrl(`/users/${ticket?.requester_id}`);
     }, [isOpen]);
 
     return (

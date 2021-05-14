@@ -9,13 +9,11 @@ interface Ticket {
     subject: string;
     description: string;
 }
-
 interface TicketStatus {
     solved: number;
     pending: number;
     unsolved: number;
 }
-
 interface TicketProps {
     allTickets: Ticket[];
     pages: paginationProps | undefined;
@@ -23,27 +21,28 @@ interface TicketProps {
     httpErrorMessage?: string;
     ticketsStatus?: TicketStatus;
     requesterName: string;
-    setCurrentPageUrl: React.Dispatch<React.SetStateAction<string>>;
+    setUrl: React.Dispatch<React.SetStateAction<string>>;
     setRequesterName: React.Dispatch<React.SetStateAction<string>>;
 }
-
 interface paginationProps {
     prev: string;
     next: string;
 }
 
 function useTickets(): TicketProps {
-    const [allTickets, setAllTickets] = useState([]);
+    const [allTickets, setAllTickets] = useState<Ticket[]>([]);
+    const [pages, setPages] = useState<paginationProps>();
     const [ticketsStatus, setTicketsStatus] = useState<TicketStatus>();
-    const [currentPageUrl, setCurrentPageUrl] = useState('/tickets');
+
+    const [requesterName, setRequesterName] = useState('');
+
+    const [url, setUrl] = useState('/tickets');
     const [httpStatusCode, setHttpStatusCode] = useState(0);
     const [httpErrorMessage, setHttpErrorMessage] = useState('');
-    const [pages, setPages] = useState();
-    const [requesterName, setRequesterName] = useState('');
 
     const fetchTickets = async (): Promise<void> => {
         try {
-            const response = await api.get(currentPageUrl);
+            const response = await api.get(url);
             const { tickets } = response.data;
             const { pagination } = response.data;
             const { allTicketsStatus } = response.data;
@@ -80,7 +79,7 @@ function useTickets(): TicketProps {
     useEffect(() => {
         setRequesterName('');
         fetchTickets();
-    }, [currentPageUrl]);
+    }, [url]);
 
     return {
         allTickets,
@@ -89,7 +88,7 @@ function useTickets(): TicketProps {
         httpErrorMessage,
         ticketsStatus,
         requesterName,
-        setCurrentPageUrl,
+        setUrl,
         setRequesterName,
     };
 }
