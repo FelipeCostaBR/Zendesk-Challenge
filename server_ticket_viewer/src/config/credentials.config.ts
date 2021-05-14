@@ -1,7 +1,7 @@
 const credentials = {
-    baseUrl: 'https://felipesolutions.zendesk.com/api/v2',
-    username: 'felipejsilvacosta@gmail.com/token',
-    password: 'CtDQG03Xnhsz3s5iPbUG1bhXCzaHqxydW4gGaVRi',
+    baseUrl: process.env.BASE_URL,
+    username: process.env.USER_NAME,
+    password: process.env.PASSWORD,
 };
 
 const token = Buffer.from(
@@ -15,4 +15,4 @@ const headers = {
     },
 };
 
-export { credentials, token, headers };
+export { credentials, headers };
