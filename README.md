@@ -10,7 +10,7 @@
 
 ### :computer: Technologies and Dependencies
 
-I decided to create a web application, therefore, I selected the tools below to help me with that (also because also because I'm very comfortable using them :laughing:).
+I decided to create a web application, therefore, I selected the tools below to help me with that (also because I'm very comfortable using them :laughing:).
 #### Programming language
 * Typescript
 
