@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { credentials, headers } from '../config/credentials.config';
+import { credentials, headers } from '../test/credentials.config';
 
 describe('Get Tickets Endpoint', () => {
     it('should be able to get tickets from Zendesk API', async () => {

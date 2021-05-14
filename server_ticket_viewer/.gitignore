@@ -1,6 +1,7 @@
 .idea/
 .vscode/
 node_modules/
+test/
 build/
 temp/
 .env

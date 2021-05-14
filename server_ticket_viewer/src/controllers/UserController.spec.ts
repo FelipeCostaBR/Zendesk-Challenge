@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { credentials, headers } from '../config/credentials.config';
+import { credentials, headers } from '../test/credentials.config';
 
 describe('Get requester Endpoint', () => {
     it('should be able to get requester name from Zendesk API', async () => {
