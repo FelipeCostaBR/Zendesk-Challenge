@@ -19,7 +19,7 @@ I decided to create a web application, therefore, I selected the tools below to 
 
 #### Backend Frameworks and Libraries 
 * Express - it provides functions that make the development process simple and efficiently such as Router and express.json().
-* axios - To request the data from Zendesk API I created an asynchronous and axios is a Promise HTTP client that I can use in bouth, Browser and Express.
+* axios - To request the data from Zendesk API I created an asynchronous and axios is a Promise HTTP client that I can use in both, Browser and Express.
 * dotenv - To be able to use environment variable dotenv helps to read the .env file with my private credentials informations.
 
 
