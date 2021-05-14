@@ -18,16 +18,16 @@ I decided to create a web application, therefore, I selected the tools below to 
 * jest
 
 #### Backend Frameworks and Libraries 
-* Express - it provides functions that make the development process simple and efficiently such as Router and express.json().
-* axios - To request the data from Zendesk API I created an asynchronous and axios is a Promise HTTP client that I can use in both, Browser and Express.
-* dotenv - To be able to use environment variable dotenv helps to read the .env file with my private credentials informations.
+* Express - it provides functions that make the development process simple and efficient such as Router and express.json().
+* Axios - To request the data from Zendesk API I created an asynchronous and Axios is a Promise HTTP client that I can use in both browser and Express.
+* dotenv - To be able to use environment variable dotenv helps to read the .env file using my private credentials.
 
 
 #### Frontend
 * ReactJs - Easy to create users interface and I can use components that I've created before to make my development process more productive.
 * styled-components - I can separate each component styles in specific files and solve the CSS modules problem.
 * polished - I don't have great skill with colours, so polished helps me choose the right colour in my components.
-* react-modal - I decided to show the ticket details in a modal to don't lose the context of the main page, because don't have any other feature or a lot of information the ticket details with modal makes the responsibility to display the details simple.
+* react-modal - I decided to show the ticket details in a modal to not lose the main page context, because there is no other feature or information to show in the ticket details component.
 
 
 ## Getting Started
@@ -36,7 +36,7 @@ I decided to create a web application, therefore, I selected the tools below to 
 ### Clone the repository and create .env file
 * $ `git clone https://github.com/FelipeCostaBR/Zendesk-Challenge.git`
 * $ `cd Zendesk-Challenge/server_ticket_viewer/`
-* Create a file `.env` on the root of the file `server_ticket_viewer/` and paste the informations sent to Sabrina's email.
+* Create a file `.env` on the root of the folder `server_ticket_viewer/` and paste the informations attached in the email sent to Sabrina.
    
 ### Run Server
 * $ `cd Zendesk-Challenge/server_ticket_viewer/`
@@ -55,11 +55,11 @@ I decided to create a web application, therefore, I selected the tools below to 
 *  http://localhost:3000/tickets
 
 
-### If doesn't return any tickets, you can execute in the terminal the command available in the file `insert_tickets.txt` sent to Sabrina's email
+### If no tickets are returned, you can execute in the terminal the command available in the file `insert_tickets.txt` attached in the email sent to Sabrina.
 
 
 ## Tests
-* copy the folder `test` attached on Sabrina's email and paste on the path `../ZENDESK/server_ticket_viewer/src`
+* copy the folder `test` attached in the email sent to Sabrina and paste on the path `../ZENDESK/server_ticket_viewer/src`
 * $ `cd server_ticket_viewer`
 * $ `yarn test`
 
