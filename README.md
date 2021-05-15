@@ -74,7 +74,7 @@ I decided to create a web application, therefore, I selected the tools below to 
 * Views API: https://developer.zendesk.com/rest_api/docs/support/views
 
 ### Pagination
-* https://developer.zendesk.com/rest_api/docs/support/introduction#pagination
+* https://develop.zendesk.com/hc/en-us/community/posts/360004239687-Pagination-using-JavaScript-Promises
 * https://medium.com/how-to-react/create-pagination-in-react-js-using-react-hooks-c3c582ff5a96
 
 ### Modal
