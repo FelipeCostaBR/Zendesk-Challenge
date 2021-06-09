@@ -66,24 +66,30 @@ export default class TicketsController {
     }
 
     public async total(_: Request, response: Response): Promise<Response> {
-        const totalTicketsUnsolvedURL = `${credentials.baseUrl}/views/900035157166/count`;
-        const totalTicketsPendingURL = `${credentials.baseUrl}/views/900035157226/count`;
+        const views = `${credentials.baseUrl}/views/`;
 
         try {
-            const ticketsUnsolved = await axios
-                .get(totalTicketsUnsolvedURL, headers)
-                .then(resp => resp.data.view_count.value);
+            const ticketView = await axios
+                .get(views, headers)
+                .then(resp =>
+                    resp.data.views.filter(view => view.position === 0),
+                );
 
-            const ticketsPending = await axios
+            const ticketViewFirstPosition = ticketView[0];
+
+            const totalTicketsPendingURL = `${credentials.baseUrl}/views/${ticketViewFirstPosition.id}/count`;
+            console.log('path', totalTicketsPendingURL); // right
+
+            const ticketUnsolved = await axios
                 .get(totalTicketsPendingURL, headers)
                 .then(resp => resp.data.view_count.value);
 
-            const allTicketsStatus = {
-                unsolved: ticketsUnsolved,
-                pending: ticketsPending,
-            };
+            // const allTicketsStatus = {
+            //     unsolved: ticketsUnsolved,
+            //     pending: ticketsPending,
+            // };
 
-            return response.json({ allTicketsStatus });
+            return response.json({ ticketUnsolved });
         } catch (error) {
             return response.status(404).json({
                 message: error.message,
